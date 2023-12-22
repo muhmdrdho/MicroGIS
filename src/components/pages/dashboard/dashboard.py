@@ -8,3 +8,5 @@ def dash():
         zoom_start=6
     )
     st_folium(m, width=900)
+
+    return dash
