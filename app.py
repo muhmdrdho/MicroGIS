@@ -1,5 +1,5 @@
 import streamlit as st
-from src.components.layout import layout1
+from src.components.layout import *
 
-layout1
+
 st.write('this is page')
