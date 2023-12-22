@@ -6,4 +6,4 @@ secondaryBackgroundColor='#f6f6f6'
 textColor='#00000'
 
 [browser]
-gatherUsageStats = False
+gatherUsageStats = false
