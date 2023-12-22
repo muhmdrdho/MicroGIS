@@ -39,5 +39,5 @@ def nav():
     elif selected =='How it works?':
         st.write('its works?')
 
-    return nav
+nav
 
