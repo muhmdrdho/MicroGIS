@@ -1,7 +1,8 @@
 import streamlit as st
-from src.components.layout import layout1
+import src.components.layout as lay1
 
 def view():
-    return view.layout1()
+    main_view = lay1.layout1()
+    return view
 
 st.write('this is page')
