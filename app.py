@@ -1,10 +1,7 @@
 import streamlit as st
-import src.components.layout as lay1
+from src.components.layout import layout1
 
-def view():
-    main_view = lay1.layout1()
-    
-view
+layout1
 
 st.header('microgis')
 st.write('this is page')
