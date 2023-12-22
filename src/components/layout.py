@@ -39,4 +39,4 @@ def layout1():
     elif selected =='How it works?':
         st.write('its works?')
 
-    return layout1
+    
