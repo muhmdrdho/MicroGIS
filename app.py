@@ -1,24 +1,3 @@
-import streamlit as st
-import streamlit_authenticator as stauth 
+import src.major as major
 
-import database as db
-
-users = db.fetch_all_users()
-
-usernames = [user['key'] for user in users]
-name = [user['name'] for user in users]
-hashed_passwords = [user["password"] for user in users]
-authenticator = stauth.Authenticate(names=name, usernames=usernames, passwords=hashed_passwords)
-#authenticator = stauth.Authenticate(names, usernames, cookie_name="microgis", key="abcd")
-
-
-name, authentication_status, username = authenticator.login("Login", "main")
-
-if authentication_status == False:
-    st.error("Username/password is incorrect")
-
-if authentication_status == None:
-    st.warning("Please enter your username and password")
-
-if authentication_status:
-    st.write('youve got this bitch')
+microgis = major.main_layout()

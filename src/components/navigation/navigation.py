@@ -1,43 +1,16 @@
-import streamlit as st 
-import streamlit_antd_components as sac 
-from src.components.settings.pages_set import *
-import src.components.pages.dashboard.dashboard as dsh
 
+import streamlit as st
+from streamlit_option_menu import option_menu
 
-with st.sidebar:
-    selected = sac.menu([
-        sac.MenuItem(
-            label='Dashboard',
-            icon='cast'
-        ),
-        sac.MenuItem(
-            label='explore',
-            icon='compass',
-            children=[
-                sac.MenuItem(
-                    label='Database',
-                    icon='database'
-                )
-            ]
-        ),
-        sac.MenuItem(
-            label='About',
-            icon='question-circle',
-            children=[
-                sac.MenuItem(
-                    label='How it works?',
-                    icon='gear'
-                )
-            ]
-        ),
-    ], format_func='title', open_all=True)
-
-if selected =='Dashboard':
-    st.header('Dashboard')
-elif selected =='Database':
-    st.write('its database')
-elif selected =='How it works?':
-    st.write('its works?')
-
-
-
+def nav():
+    with st.sidebar:
+        selected = option_menu(None, ["Home", "Upload",  "Tasks", 'Settings'], 
+                                icons=['house', 'cloud-upload', "list-task", 'gear'], 
+                                menu_icon="cast", default_index=0, orientation="vertical",
+                                styles={
+                                    "container": {"padding": "0!important", "background-color": "#fafafa"},
+                                    "icon": {"color": "black", "font-size": "15px"}, 
+                                    "nav-link": {"font-size": "15px", "text-align": "left", "margin":"0px", "--hover-color": "#fcd2d2"},
+                                    "nav-link-selected": {"background-color": "#c42121"},
+                                }
+)

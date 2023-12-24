@@ -1,24 +1,60 @@
 import streamlit as st
-from deta import Deta
+import streamlit_authenticator as stauth
+from src.database.db import sign_up, fetch_users
+import streamlit_antd_components as sac 
+from src.components.navigation.navigation import nav
 
 
-project = Deta(st.secrets['deta_key'])
+def logPart():
 
-actual_email = 'email'
-actual_password = 'password'
+    info, info1 = st.columns(2)
+    try:
+        users = fetch_users()
+        emails = []
+        usernames = []
+        passwords = []
+
+        for user in users:
+            emails.append(user['key'])
+            usernames.append(user['username'])
+            passwords.append(user['password'])
+
+        credentials = {'usernames': {}}
+        for index in range(len(emails)):
+            credentials['usernames'][usernames[index]] = {'name': emails[index], 'password': passwords[index]}
+
+        Authenticator = stauth.Authenticate(credentials, cookie_name='Streamlit', key='abcdef', cookie_expiry_days=4)
+        
+        
+        email, authentication_status, username = Authenticator.login(':green[Login]', 'main')
+
+        
+        if not authentication_status:
+            on = st.toggle('SignUp')
+            if on:
+                sign_up()
+
+        if username:
+            if username in usernames:
+                if authentication_status:
+                    # let User see app
+                    st.sidebar.subheader(f'Welcome {username}')
+                    
+                    Authenticator.logout('Log Out', 'sidebar')
+                    st.subheader('This is the home page')
+                    sidebar_navigation = nav()
+                    
+
+                elif not authentication_status:
+                    with info:
+                        st.error('Incorrect Password or username')
+                else:
+                    with info:
+                        st.warning('Please feed in your credentials')
+            else:
+                with info:
+                    st.warning('Username does not exist, Please Sign up')
 
 
-placeholder = st.empty()
-
-with placeholder.form('login'):
-    email = st.text_input('email')
-    password = st.text_input('password', type='password')
-    submit = st.form_submit_button('Login')
-
-if submit and email == actual_email and actual_password == actual_password:
-    placeholder.empty()
-    st.success('Login Successful')
-elif submit and email != actual_email and password != actual_password:
-    st.error('Login Failed')
-else:
-    pass
+    except:
+        st.success('Refresh Page')
