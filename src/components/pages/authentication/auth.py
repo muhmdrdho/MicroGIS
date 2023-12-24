@@ -6,7 +6,8 @@ from src.components.navigation.navigation import nav
 
 
 def logPart():
-
+    
+    
     info, info1 = st.columns(2)
     try:
         users = fetch_users()
@@ -38,6 +39,7 @@ def logPart():
             if username in usernames:
                 if authentication_status:
                     # let User see app
+                    st.sidebar.image('src/components/assets/microgis-logo-01.png', width=200)
                     st.sidebar.subheader(f'Welcome {username}')
                     
                     Authenticator.logout('Log Out', 'sidebar')
