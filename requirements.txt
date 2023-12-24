@@ -3,3 +3,5 @@ streamlit-folium
 folium
 streamlit-antd-components
 deta
+streamlit-authenticator
+streamlit-option-menu
