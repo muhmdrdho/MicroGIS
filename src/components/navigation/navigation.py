@@ -1,6 +1,7 @@
 
 import streamlit as st
 from streamlit_option_menu import option_menu
+from src.components.pages.upload.upload import upfile
 
 def nav():
     with st.sidebar:
@@ -14,3 +15,12 @@ def nav():
                                     "nav-link-selected": {"background-color": "#c42121"},
                                 }
 )
+    if selected == "Explore":
+        st.header("This is explore")
+
+    if selected  == "Upload":
+        st.header("This is Upload")
+        upfile()
+
+    if selected == "About":
+        st.header("This is About")

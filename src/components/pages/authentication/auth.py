@@ -43,7 +43,7 @@ def logPart():
                     st.sidebar.subheader(f'Welcome {username}')
                     
                     Authenticator.logout('Log Out', 'sidebar')
-                    st.subheader('This is the home page')
+                    
                     sidebar_navigation = nav()
                     
 
