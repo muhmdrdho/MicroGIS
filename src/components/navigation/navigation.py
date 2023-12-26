@@ -4,8 +4,8 @@ from streamlit_option_menu import option_menu
 
 def nav():
     with st.sidebar:
-        selected = option_menu(None, ["Home", "Upload",  "Tasks", 'Settings'], 
-                                icons=['house', 'cloud-upload', "list-task", 'gear'], 
+        selected = option_menu(None, ["Explore", "Upload",  "About"], 
+                                icons=['compass', 'cloud-upload', "list-task"], 
                                 menu_icon="cast", default_index=0, orientation="vertical",
                                 styles={
                                     "container": {"padding": "0!important", "background-color": "#fafafa"},
