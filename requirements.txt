@@ -5,3 +5,4 @@ streamlit-antd-components
 deta
 streamlit-authenticator
 streamlit-option-menu
+geopandas
