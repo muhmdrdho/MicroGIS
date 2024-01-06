@@ -1,7 +1,7 @@
 
 import streamlit as st
 from streamlit_option_menu import option_menu
-from src.components.pages.upload.upload import upfile
+from src.components.pages.upload.upload import upload_maps
 
 def nav():
     with st.sidebar:
@@ -20,7 +20,7 @@ def nav():
 
     if selected  == "Upload":
         st.header("This is Upload")
-        upfile()
+        upload_maps()
 
     if selected == "About":
         st.header("This is About")

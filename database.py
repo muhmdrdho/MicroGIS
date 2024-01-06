@@ -1,47 +1,12 @@
 import streamlit as st
-import folium
-from folium import plugins
-from streamlit_folium import folium_static
 from src.database.db import deta
-from gpxplotter import read_gpx_file, create_folium_map, add_segment_to_map
 import geopandas as gpd
 from geojson_transformer import GeoJsonTransformer
-from gpx_converter import Converter
-import gpxpy 
-import gpxo
 import os 
 from io import StringIO
 import os
 from zipfile import ZipFile 
-
-def upload_deta(collection: str, filename: str, byteCode: bytes) -> str:
-    gpxDrive = deta.Drive(collection)
-    gpxData = gpxDrive.put(filename, byteCode)
-
-    return gpxData
-
-def get_deta_list():
-    gpxFile_db = 'gpxFile_db'
-    gpxDrive = deta.Drive(gpxFile_db)
-    gpxData_list = gpxDrive.list(100)
-
-    return gpxData_list['names']
-
-def get_deta_file(filename: str):
-    gpxFile_db = 'gpxFile_db'
-    gpxDrive = deta.Drive(gpxFile_db)
-    return gpxDrive.get(filename)
-
-def delete_file(filename: str):
-    if os.path.exists(filename):
-        os.remove(filename)
-    else:
-        print(f"The file {filename} does not exist")
-
-def convert_file_to_shp(source: str, output: str) -> str:
-    gdf = gpd.read_file(source)
-    gdf.to_file(output)
-    return output
+from src.database.db import upload_deta, get_deta_list, get_deta_file, delete_file, convert_file_to_shp 
 
 
 def upload_maps():
