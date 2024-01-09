@@ -3,6 +3,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from src.components.pages.upload.upload import upload_maps
 from src.components.pages.explore.explore import explore
+from src.components.pages.about.about import steps
 
 def nav():
     with st.sidebar:
@@ -27,3 +28,5 @@ def nav():
 
     if selected == "About":
         st.header("About")
+        st.write ("Follow the steps below")
+        steps()
