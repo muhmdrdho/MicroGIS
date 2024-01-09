@@ -1,24 +1,51 @@
 import streamlit as st
+from src.database.db import deta
 from geojson_transformer import GeoJsonTransformer
 from io import StringIO
 import os
+import geopandas as gpd
 from zipfile import ZipFile 
-from src.database.db import upload_deta, get_deta_list, get_deta_file, delete_file, convert_file_to_shp 
+ 
 
+def upload_deta(collection: str, filename: str, byteCode: bytes) -> str:
+    gpxDrive = deta.Drive(collection)
+    gpxData = gpxDrive.put(filename, byteCode)
+
+    return gpxData
+
+def get_gpx_deta_list():
+    gpxFile_db = 'gpxFile_db'
+    gpxDrive = deta.Drive(gpxFile_db)
+    gpxData_list = gpxDrive.list(100)
+
+    return gpxData_list['names']
+
+def get_gpx_deta_file(filename: str):
+    gpxFile_db = 'gpxFile_db'
+    gpxDrive = deta.Drive(gpxFile_db)
+    return gpxDrive.get(filename)
+
+def delete_file(filename: str):
+    if os.path.exists(filename):
+        os.remove(filename)
+    else:
+        print(f"The file {filename} does not exist")
+
+def convert_file_to_shp(source: str, output: str) -> str:
+    gdf = gpd.read_file(source)
+    gdf.to_file(output)
+    return output
 
 def upload_maps():
     uploaded = st.file_uploader('Choose your file', accept_multiple_files=True)
     for uploads in uploaded:
-        
-        stringio = StringIO(uploads.getvalue().decode('utf-8'))
-        string_data = stringio.read()
 
         gpxData = upload_deta("gpxFile_db", uploads.name, uploads.getvalue())
 
     
-    data_list = get_deta_list()
-    choose_data = st.selectbox("Select data to see view", data_list)
-    comp_data = get_deta_file(choose_data)
+    data_list = get_gpx_deta_list()
+    choose_data = st.selectbox("Select data", data_list)
+    comp_data = get_gpx_deta_file(choose_data)
     binary_data = comp_data.read()
 
     fileName = choose_data

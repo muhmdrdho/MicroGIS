@@ -39,14 +39,6 @@ def logPart():
     if username:
         if username in usernames:
             if authentication_status:
-                progress = "Operation in progress. Please wait."
-                my_bar = st.progress(0, text=progress)
-                for percent_complete in range(100):
-                    time.sleep(0.01)
-                    my_bar.progress(percent_complete + 1, text=progress)
-
-                time.sleep(1)
-                my_bar.empty()
 
                     # let User see app
                 st.sidebar.image('src/components/assets/microgis-logo-01.png', width=200)
