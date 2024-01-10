@@ -24,6 +24,20 @@ def get_json_deta_file(filename: str):
     jsonDrive = deta.Drive(jsonFile_db)
     return jsonDrive.get(filename)
 
+def shpFile_db():
+    shp_db = 'shpFile_db'
+    shp_Drive = deta.Drive(shp_db)
+    shp_list = shp_Drive.list(100)
+
+    return shp_list['names']
+
+def get_shpFile_deta_file(filename: str):
+    shp_db = 'shpFile_db'
+    shp_Drive = deta.Drive(shp_db)
+    shp_list = shp_Drive.list(100)
+
+    return shp_Drive.get(filename)
+
 
 def explore():
     select_file = st.selectbox('Select file',('Json', 'Gpx', 'Shapefile') )
@@ -32,11 +46,22 @@ def explore():
         expData = st.selectbox('select your data', jsonData)
         comp_json_data = get_json_deta_file(expData)
         binary_data = comp_json_data.read()
-
+         
         fileName = expData
         with open(fileName, "wb") as binary_file:
                 # Write bytes to file
             binary_file.write(binary_data)
+
+    if select_file == 'Shapefile':
+        shpData2 = shpFile_db()
+        shpData = st.selectbox('select your data',shpData2 )
+        comp_shp_data = get_shpFile_deta_file(shpData)
+        data2 = comp_shp_data.read()
+        shpread = shpData
+        
+        shp_down = st.download_button(label='Download your Shapefile', data=data2)
+        
+       
     
     
     map_toggle = st.toggle('Activate to see the map')
@@ -80,6 +105,7 @@ def explore():
     
             #Layer control
         folium.LayerControl().add_to(pre_map)
+        
                             
             #Fullscreeen
         plugins.Fullscreen().add_to(pre_map)
@@ -96,4 +122,5 @@ def explore():
                                     
             #Measure Control
         plugins.MeasureControl(position='topright', primary_length_unit='meters', secondary_length_unit='miles', primary_area_unit='sqmeters', secondary_area_unit='acres').add_to(pre_map)
+        folium.GeoJson('hasil.json').add_to(pre_map)
         folium_static(pre_map, width=700)
