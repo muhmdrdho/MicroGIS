@@ -63,10 +63,11 @@ def explore():
         
        
     
-    
+    datashp = 'hasil.json'
     map_toggle = st.toggle('Activate to see the map')
     if map_toggle:
         pre_map = folium.Map(tiles='OpenTopoMap')
+        folium.GeoJson('hasil.json').add_to(pre_map)
         Esri_Satellite = folium.TileLayer(
                                                                                 tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
                                                                                 attr = 'Esri',
@@ -102,25 +103,8 @@ def explore():
                                                                                 overlay = True,
                                                                                 control = True
                                                                                 ).add_to(pre_map)
-    
-            #Layer control
         folium.LayerControl().add_to(pre_map)
-        
-                            
-            #Fullscreeen
-        plugins.Fullscreen().add_to(pre_map)
-
-            #Locate Control
-        plugins.LocateControl().add_to(pre_map)
-                                                    
-            #Cursor Postion
-        fmtr = "function(num) {return L.Util.formatNum(num, 3) + ' º ';};"
-        plugins.MousePosition(position='topright', separator=' | ', prefix="Mouse:",lat_formatter=fmtr, lng_formatter=fmtr).add_to(pre_map)
-                                    
-            #Add the draw 
-        plugins.Draw(export=True, filename='data.geojson', position='topleft', draw_options=None, edit_options=None).add_to(pre_map)
-                                    
-            #Measure Control
-        plugins.MeasureControl(position='topright', primary_length_unit='meters', secondary_length_unit='miles', primary_area_unit='sqmeters', secondary_area_unit='acres').add_to(pre_map)
-        folium.GeoJson('hasil.json').add_to(pre_map)
         folium_static(pre_map, width=700)
+
+    
+explore()
