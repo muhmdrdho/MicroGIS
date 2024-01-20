@@ -8,3 +8,4 @@ streamlit-option-menu
 geopandas
 geojson-transformer
 gpxcsv
+gpx-converter
