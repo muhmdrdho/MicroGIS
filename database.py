@@ -5,13 +5,13 @@ from io import StringIO
 import os
 import geopandas as gpd
 from zipfile import ZipFile 
-from gpxcsv import gpxtolist, gpxtofile
+
 import pandas as pd
-from gpx_converter import Converter
+
 import folium 
 import json
 import zipfile
-from gpxplotter import read_gpx_file, create_folium_map, add_segment_to_map
+
 from streamlit_folium import folium_static 
 
 def upload_deta(collection: str, filename: str, byteCode: bytes) -> str:
