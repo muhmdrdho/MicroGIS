@@ -28,26 +28,19 @@ def get_shapefile_deta_file(filename: str):
 
     return shp_Drive.get(filename)
 
-def explore():
-    options = st.selectbox('Select your data first', ['Gpx', 'Shapefile'])
 
-    if options == 'Shapefile':
-        st.write('This is shapefile')
-        data_list1 = shapefile_db()
+data_list1 = shapefile_db()
 
-        read_shp = st.selectbox('select', data_list1)
-        read_shp_data = get_shapefile_deta_file(read_shp)
-        fileName1 = read_shp
-        binary_data = read_shp_data.read()
-        #with open(f'{fileName1}', "rb") as f:
-            #st.download_button('Download Zip', f, file_name=f'{fileName1}')
+read_shp = st.selectbox('select', data_list1)
+read_shp_data = get_shapefile_deta_file(read_shp)
+fileName1 = read_shp
+binary_data = read_shp_data.read()
+#with open(f'{fileName1}', "rb") as f:
+    #st.download_button('Download Zip', f, file_name=f'{fileName1}')
 
-        
+#with open(fileName1, 'wb') as f :
+    #f.write(binary_data)
 
-        with open(f'{fileName1}', "rb") as f:
-            st.download_button('Download Zip', f, file_name=f'{fileName1}')
+with open(f'{fileName1}', "rb") as f:
+    st.download_button('Download Zip', f, file_name=f'{fileName1}')
 
-        
-
-                
-        
