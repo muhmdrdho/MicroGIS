@@ -7,3 +7,8 @@ streamlit-authenticator
 streamlit-option-menu
 geopandas
 geojson-transformer
+zipfile
+json
+os
+io
+gpxcsv
