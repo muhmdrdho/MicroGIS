@@ -9,3 +9,4 @@ geopandas
 geojson-transformer
 gpxcsv
 gpx-converter
+gpxplotter
