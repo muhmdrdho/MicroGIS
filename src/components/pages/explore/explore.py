@@ -11,7 +11,7 @@ from gpx_converter import Converter
 import folium 
 import json
 import zipfile
-from gpxplotter import read_gpx_file, create_folium_map, add_segment_to_map
+
 from streamlit_folium import folium_static 
 
 def shapefile_db():
@@ -33,19 +33,24 @@ def explore():
 
     if options == 'Shapefile':
         st.write('This is shapefile')
-        data_list1 = shapefile_db()
 
-        read_shp = st.selectbox('select', data_list1)
-        read_shp_data = get_shapefile_deta_file(read_shp)
-        fileName1 = read_shp
-        binary_data = read_shp_data.read()
-        #with open(f'{fileName1}', "rb") as f:
-            #st.download_button('Download Zip', f, file_name=f'{fileName1}')
-
+        data_list = shapefile_db()
+        choose_data = st.selectbox("Select data", data_list)
+        comp_data = get_shapefile_deta_file(choose_data)
+        binary_data = comp_data.read()
+        fileName = choose_data
+        with open(fileName, "wb") as binary_file:
+            # Write bytes to file
+            binary_file.write(binary_data)
+            st.download_button('Download Zip', binary_data, file_name=f'{fileName}')
         
 
-        with open(f'{fileName1}', "rb") as f:
-            st.download_button('Download Zip', f, file_name=f'{fileName1}')
+        read = gpd.read_file(fileName)
+        gdf = gpd.GeoDataFrame(read)
+        m = folium.Map(tiles='OpenTopoMap')
+        folium.GeoJson(gdf).add_to(m)
+        folium_static(m)
+
 
         
 

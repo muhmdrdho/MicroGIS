@@ -115,7 +115,8 @@ def upload_maps():
             with open(fileName, "wb") as binary_file:
                 # Write bytes to file
                 binary_file.write(binary_data)
-            
+                st.download_button('Download Zip', binary_data, file_name=f'{fileName}')
+        
             
             extractedFileName = f"extract_{fileName}.json"
             jsonFile = GeoJsonTransformer(fileName).save_geojson(filepath=extractedFileName)
@@ -176,37 +177,36 @@ def upload_maps():
             shp_db = 'shpFile_db'
             shp_Drive = deta.Drive(shp_db)
 
-            if uploads:
-                choosen_dp = st.selectbox(f"Select Data on line", drv["names"])
-                filezz, ext = choosen_dp.split('.')
-                reads = gpxDrivePoints.get(choosen_dp)
+            
+            choosen_dp = st.selectbox(f"Select Data on line", drv["names"])
+            filezz, ext = choosen_dp.split('.')
+            reads = gpxDrivePoints.get(choosen_dp)
 
-                read3 = gpd.read_file(reads)
-                gdf = gpd.GeoDataFrame(read3, columns=['name', 'geometry'])
-                gdf1 = gdf.to_file(f'{filezz}.shp')
+            read3 = gpd.read_file(reads)
+            gdf = gpd.GeoDataFrame(read3, columns=['name', 'geometry'])
+            gdf1 = gdf.to_file(f'{filezz}.shp')
 
 
-                with ZipFile(f'{filezz}.zip','w') as zip: 
-                                # writing each file one by one 
-                        files = [f'{filezz}.shp', f'{filezz}.cpg', f'{filezz}.dbf', f'{filezz}.prj', f'{filezz}.shx']
-                        for file in files: 
-                            zip.write(file)
+            with ZipFile(f'{filezz}.zip','w') as zip: 
+                            # writing each file one by one 
+                files = [f'{filezz}.shp', f'{filezz}.cpg', f'{filezz}.dbf', f'{filezz}.prj', f'{filezz}.shx']
+                for file in files: 
+                    zip.write(file)
 
-                with open(f'{filezz}.zip', "rb") as file:
-                            # Write bytes to file
-                            output = file.read()
-                            upload_deta("shpFile_db", f'{filezz}.zip', output)
+            with open(f'{filezz}.zip', "rb") as file:
+                        # Write bytes to file
+                output = file.read()
+                upload_deta("shpFile_db", f'{filezz}.zip', output)
 
-                
-                for file in files:
-                    delete_file(file)
-                        
-                delete_file(f'{filezz}.zip')
+            
+            for file in files:
+                delete_file(file)
+                    
+            delete_file(f'{filezz}.zip')
 
-                st.write(gdf)
+            st.write(gdf)
 
-            else:
-                st.write("check your data first")
+        
 
             
 
