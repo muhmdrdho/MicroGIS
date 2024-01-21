@@ -44,12 +44,15 @@ def explore():
             binary_file.write(binary_data)
             st.download_button('Download Zip', binary_data, file_name=f'{fileName}')
         
+        on = st.toggle('Click on if you wanna see the map')
 
-        read = gpd.read_file(fileName)
-        gdf = gpd.GeoDataFrame(read)
-        m = folium.Map(tiles='OpenTopoMap')
-        folium.GeoJson(gdf).add_to(m)
-        folium_static(m)
+        if on:
+            st.subheader('Map with object')
+            read = gpd.read_file(fileName)
+            gdf = gpd.GeoDataFrame(read)
+            m = folium.Map(tiles='OpenTopoMap', location=['-2', '108'], zoom_start=6)
+            n = folium.GeoJson(gdf).add_to(m)
+            folium_static(m)
 
 
         
