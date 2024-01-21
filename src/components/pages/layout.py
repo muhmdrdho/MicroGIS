@@ -3,7 +3,7 @@ import streamlit as st
 import src.components.pages.authentication.auth as nauth
 #from src.components.settings.pages_set import set_page
 
-st.set_page_config('MicroGIS', menu_items=None)
+st.set_page_config('MicroGIS', menu_items=None, page_icon=None)
 #def page_settings():
     #set = set_page()
     #return set
