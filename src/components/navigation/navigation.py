@@ -18,7 +18,7 @@ def nav():
                                 }
 )
     if selected == "Explore":
-        st.header("Explore")
+        st.header("🧭Explore")
         st.write("view files in our adventure!")
         explore()
 
