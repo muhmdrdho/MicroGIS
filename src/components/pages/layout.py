@@ -27,3 +27,11 @@ reduce_header_height_style = """
                 </style>
             """
 st.markdown(reduce_header_height_style, unsafe_allow_html=True)
+
+st.markdown('''
+<style>
+.stApp [data-testid="stToolbar"]{
+    display:none;
+}
+</style>
+''', unsafe_allow_html=True)
