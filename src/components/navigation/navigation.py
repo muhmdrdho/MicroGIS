@@ -23,7 +23,7 @@ def nav():
         explore()
 
     if selected  == "Upload":
-        st.header("Upload")
+        st.header("📤Upload")
         upload_maps()
 
     if selected == "About":

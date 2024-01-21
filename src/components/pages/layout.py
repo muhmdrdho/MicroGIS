@@ -3,7 +3,7 @@ import streamlit as st
 import src.components.pages.authentication.auth as nauth
 #from src.components.settings.pages_set import set_page
 
-st.set_page_config('MicroGIS', menu_items=None, page_icon=None)
+
 #def page_settings():
     #set = set_page()
     #return set
@@ -30,8 +30,8 @@ st.markdown(reduce_header_height_style, unsafe_allow_html=True)
 
 st.markdown('''
 <style>
-.st-emotion-cache-zq5wmm{
-    display:none;
+.styles_terminalButton__JBj5T{
+    visibility:hidden;
 }
 </style>
 ''', unsafe_allow_html=True)
